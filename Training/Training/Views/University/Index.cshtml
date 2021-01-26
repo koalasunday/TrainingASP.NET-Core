@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Training.Models.University>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid py-4">
+    <h4 class="text-center text-uppercase">University List</h4><br /><br />
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </p>
+    <table class="table table-striped table-bordered text-center">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" style="color:#fff;" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-danger" style="color:#fff;" onclick="Delete(@item.Id)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+<script>
+    function Delete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/University/Delete/",
+                    data: { id: id },
+                    type: "POST"
+                }).done(function (data) {
+                    if (data == 1) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        window.location.href = window.location.href;
+                    }
+                    //window.alert(data);
+                }).fail(function () {
+                    swalWithBootstrapButtons.fire(
+                        'Data Not Deleted',
+                        'Your data fail to delete. please try again',
+                        'error'
+                    )
+                });
+            }
+        })
+
+    }
+</script>

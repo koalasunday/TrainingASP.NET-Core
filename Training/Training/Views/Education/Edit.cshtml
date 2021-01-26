@@ -1,0 +1,42 @@
+﻿@model Training.Models.Education
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="container-fluid py-4">
+    <h4 class="text-center text-uppercase">Update Data Education</h4><br />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Degree" class="control-label"></label>
+                    <input asp-for="Degree" class="form-control" />
+                    <span asp-validation-for="Degree" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GPA" class="control-label"></label>
+                    <input asp-for="GPA" class="form-control" />
+                    <span asp-validation-for="GPA" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="University_Id" class="control-label"></label>
+                    <select asp-for="University_Id" class="form-control" asp-items="@(new SelectList(ViewBag.message2,"Id","Name"))"></select>
+                    @*<select asp-for="University_Id" class="form-control"  asp-items="@(new SelectList(ViewBag.message,"Id","Name"))"></select>*@
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+            <a class="btn btn-primary" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

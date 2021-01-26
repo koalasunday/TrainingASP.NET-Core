@@ -1,0 +1,33 @@
+﻿@model Training.Models.Profiling
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-fluid py-4">
+    <h4 class="text-center text-uppercase">Update Data Profiling</h4><br />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="NIK" />
+                <div class="form-group">
+                    <label asp-for="NIK" class="control-label"></label>
+                    <input asp-for="NIK" class="form-control" contenteditable="false" />
+                    <span asp-validation-for="NIK" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Education" class="control-label"></label>
+                    <select asp-for="Education_Id" class="form-control" asp-items="@(new SelectList(ViewBag.message2,"Id","Degree"))"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+            <a class="btn btn-primary" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
